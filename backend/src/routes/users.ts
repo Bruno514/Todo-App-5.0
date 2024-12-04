@@ -15,9 +15,9 @@ export interface IUser {
   email: string;
 }
 
-type UserRequest = {
+export interface IUserRequest extends Request {
   user: IUser;
-};
+}
 
 usersRouter.post(
   "/register",
@@ -33,8 +33,8 @@ usersRouter.post(
         return res.status(400).json({ error: "Email already exists" });
       }
 
-      console.log(req.body)
-      console.log(req.body.password)
+      console.log(req.body);
+      console.log(req.body.password);
 
       // Hash the password
       const hashedPassword = await bcrypt.hash(req.body.password, 10);
@@ -48,9 +48,9 @@ usersRouter.post(
         },
       });
 
-      res.status(201).json({message: "User created"});
+      res.status(201).json({ message: "User created" });
     } catch (error) {
-      console.error(error)
+      console.error(error);
       res.status(500).json({ error: "Internal server error" });
     }
   }
@@ -90,16 +90,14 @@ usersRouter.post("/login", async function (req: Request, res: Response) {
 usersRouter.get(
   "/",
   verifyToken,
-  async function (req: UserRequest, res: Response) {
+  async function (req: IUserRequest, res: Response) {
     try {
       // Fetch user details using decoded token
       const user = await prisma.user.findFirst({
         where: { email: req.user.email },
       });
-      if (!user) {
-        return res.status(404).json({ error: "User not found" });
-      }
-      res.status(200).json({ username: user.name, email: user.email });
+
+      res.status(200).json({ username: user?.name, email: user?.email });
     } catch (error) {
       res.status(500).json({ error: "Internal server error" });
     }

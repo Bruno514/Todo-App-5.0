@@ -6,7 +6,8 @@ const app = express();
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use("/tasks", tasksRouter);
+
 app.use("/users", usersRouter);
+app.use("/tasks", tasksRouter);
 
 module.exports = app;
