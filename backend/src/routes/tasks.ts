@@ -13,3 +13,11 @@ tasksRouter.get(
     res.json(tasks);
   }
 );
+
+tasksRouter.post(
+  "/",
+  async function (req: Request, res: Response, next: NextFunction) {
+    const tasks = await prisma.task.findMany();
+    res.json(tasks);
+  }
+);
