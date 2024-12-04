@@ -1,4 +1,4 @@
-import { Express, Request, Response, NextFunction } from "express";
+import { Express, Response, NextFunction } from "express";
 import { PrismaClient } from "@prisma/client";
 import { verifyToken } from "../middleware/verifyToken";
 import { IUserRequest } from "./users";
@@ -16,7 +16,7 @@ tasksRouter.get(
 
     const tasks = await prisma.user.findMany({
       where: {
-        email,
+        email: email,
       },
       select: {
         tasks: {
@@ -41,14 +41,16 @@ tasksRouter.post(
   async function (req: IUserRequest, res: Response, next: NextFunction) {
     try {
       const email = req.user.email;
+      const { title, description, dueDate } = req.body;
 
       const tasks = await prisma.user.update({
         where: { email: email },
         data: {
           tasks: {
             create: {
-              title: req.body.title,
-              description: req.body.description,
+              title: title,
+              description: description,
+              dueDate: dueDate,
             },
           },
         },
@@ -57,6 +59,7 @@ tasksRouter.post(
       res.status(201).json({ message: "Task created." });
     } catch (error) {
       console.error(error);
+
       res.status(403).json({ error: "Could not create task" });
     }
   }
