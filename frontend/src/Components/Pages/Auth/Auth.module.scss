@@ -1,0 +1,59 @@
+$black-light: #3d3f4d;
+$blue-medium: #0057d1;
+
+.main {
+  display: flex;
+  justify-content: center;
+  font-family: "Nunito";
+}
+
+.form {
+  padding: 1.5rem;
+  background-color: white;
+  width: 70%;
+  max-width: 20rem;
+  border-radius: 0.8rem;
+  margin-top: 4rem;
+}
+
+.title {
+  text-align: center;
+  font-size: 1.5rem;
+  font-weight: bolder;
+  color: $black-light;
+}
+
+.fieldset {
+  margin-top: 1.5rem;
+  margin-bottom: 1rem;
+  display: flex;
+  gap: 1rem;
+  flex-direction: column;
+  align-items: center;
+}
+
+.link {
+  color: $blue-medium;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.input {
+  box-sizing: border-box;
+  width: 100%;
+  min-width: 10rem;
+  padding: 0.75rem;
+  border-radius: 0.25rem;
+  border-style: solid;
+}
+
+.btnSubmit {
+  composes: input;
+  background-color: $blue-medium;
+  color: white;
+  border: none;
+}
+
+.footer {
+  text-align: center;
+}
