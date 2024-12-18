@@ -22,7 +22,9 @@ export default function Auth({ isRegistering = true }: Props) {
     passwordConfirm: "",
   });
 
-  function handleSubmit() {}
+  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+  }
 
   function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
     const { name, value } = e.target;
@@ -32,9 +34,9 @@ export default function Auth({ isRegistering = true }: Props) {
   return (
     <main className={styles.main}>
       <form className={styles.form} onSubmit={handleSubmit}>
-        <h1 className={styles.title}>{isRegistering ? "Login" : "Register"}</h1>
+        <h1 className={styles.title}>{isRegistering ? "Register" : "Login"}</h1>
         <fieldset className={styles.fieldset}>
-          {!isRegistering && (
+          {isRegistering && (
             <input
               className={styles.input}
               placeholder="Name"
@@ -64,7 +66,7 @@ export default function Auth({ isRegistering = true }: Props) {
             id="password"
             onChange={handleChange}
           />
-          {!isRegistering && (
+          {isRegistering && (
             <input
               className={styles.input}
               placeholder="Confirm your password"
@@ -76,16 +78,16 @@ export default function Auth({ isRegistering = true }: Props) {
             />
           )}
           <button className={styles.btnSubmit} type={"submit"}>
-            {!isRegistering ? "Login" : "Register"}
+            {isRegistering ? "Register" : "Login"}
           </button>
         </fieldset>
 
         <footer className={styles.footer}>
-          {isRegistering ? (
+          {!isRegistering ? (
             <>
               Don't have an account?{" "}
               <NavLink className={styles.link} to="/register" end>
-                Signup
+                Sign up
               </NavLink>
             </>
           ) : (

@@ -12,8 +12,8 @@ createRoot(document.getElementById("root")!).render(
     <BrowserRouter>
       <Routes>
         <Route index element={<App />} />
-        <Route path="register" element={<Auth isRegistering={false} />} />
-        <Route path="login" element={<Auth isRegistering={true} />} />
+        <Route path="register" element={<Auth isRegistering={true} />} />
+        <Route path="login" element={<Auth isRegistering={false} />} />
       </Routes>
     </BrowserRouter>
   </StrictMode>
